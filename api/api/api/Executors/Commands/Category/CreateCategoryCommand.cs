@@ -1,10 +1,9 @@
 using api.Dtos.Response;
-using api.Repositories.Interfaces;
 using MediatR;
 
-namespace api.Commands.Category;
+namespace api.Commands;
 
-public class CreateCategoryCommand : IRequest<CategoryResponse>
+public record CreateCategoryCommand : IRequest<CategoryResponse>
 {
 	public string Name { get; set; }
 	public string Description { get; set; }

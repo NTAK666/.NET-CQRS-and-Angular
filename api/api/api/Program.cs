@@ -4,7 +4,6 @@ using api.Models.User;
 using api.Repositories.Interfaces;
 using api.Repositories.Repositories;
 using api.Repositories.UoW;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,8 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddSwaggerGen(otps => { otps.EnableAnnotations(); });
+builder.Services.AddAutoMapper(typeof(Program));
 
 // region Database
 
@@ -47,8 +46,6 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

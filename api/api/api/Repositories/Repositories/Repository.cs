@@ -56,8 +56,9 @@ public class Repository<T, K> : IRepository<T, K> where T : class, IBaseEntity, 
 
 	public bool SoftDelete(T entity)
 	{
-		entity.DeletedAt = DateTime.Now;
+		entity.DeletedAt = DateTime.UtcNow;
 		_context.Update(entity);
+		_context.SaveChanges();
 		return true;
 	}
 

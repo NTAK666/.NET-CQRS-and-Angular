@@ -1,5 +1,3 @@
-using api.Database;
-
 namespace api.Repositories.Interfaces;
 
 public interface IUnitOfWork
