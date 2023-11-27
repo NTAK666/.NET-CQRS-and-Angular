@@ -167,7 +167,6 @@ namespace api.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long?>("CategoryId")
-                        .IsRequired()
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
@@ -188,11 +187,11 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("price")
-                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
@@ -378,9 +377,7 @@ namespace api.Migrations
                 {
                     b.HasOne("api.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });

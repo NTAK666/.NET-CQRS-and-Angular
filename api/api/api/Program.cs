@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using api.Database;
 using api.Models.User;
 using api.Repositories.Interfaces;
@@ -9,11 +10,18 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(op =>
+{
+	op.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(otps => { otps.EnableAnnotations(); });
 builder.Services.AddAutoMapper(typeof(Program));
-
+builder.Services.AddLogging(config =>
+{
+	config.AddConsole();
+	config.AddDebug();
+});
 // region Database
 
 var connectionString = builder.Configuration["ConnectionStrings:Database"];

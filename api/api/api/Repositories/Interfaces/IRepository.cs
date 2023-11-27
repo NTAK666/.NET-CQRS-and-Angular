@@ -17,6 +17,14 @@ public interface IRepository<T, K> where T : class, IBaseEntity, new() where K :
 		bool disableTracking = true,
 		bool ignoreQueryFilters = false);
 
+	public List<T>? FindAll(
+		Expression<Func<T, T>>? selector = null,
+		Expression<Func<T, bool>>? predicate = null,
+		Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+		Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+		bool disableTracking = true,
+		bool ignoreQueryFilters = false);
+
 	bool SoftDelete(T entity);
 	T? FindById(K id);
 

@@ -15,14 +15,14 @@ public class CategoryController : BaseApiController
 		_mediator = mediator;
 	}
 
-	[HttpGet("gets", Name = "gets")]
-	public async Task<IActionResult> GetCategory()
+	[HttpGet("gets")]
+	public async Task<IActionResult> GetCategories()
 	{
 		var result = await _mediator.Send(new GetCategoryQuery());
 		return Ok(result);
 	}
 
-	[HttpGet("get/{Id}", Name = "get")]
+	[HttpGet("get/{Id}")]
 	public async Task<IActionResult> GetCategoryById([FromRoute] GetCategoryByIdQuery query)
 	{
 		var result = await _mediator.Send(query);
@@ -30,21 +30,21 @@ public class CategoryController : BaseApiController
 	}
 
 
-	[HttpPost("create", Name = "create")]
+	[HttpPost("create")]
 	public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryCommand command)
 	{
 		var result = await _mediator.Send(command);
 		return Ok(result);
 	}
 
-	[HttpDelete("delete/{Id}", Name = "delete")]
+	[HttpDelete("delete/{Id}")]
 	public async Task<IActionResult> DeleteCategory([FromRoute] DeleteCategoryCommand command)
 	{
 		var result = await _mediator.Send(command);
 		return Ok(result);
 	}
 
-	[HttpPut("update/{Id}", Name = "update")]
+	[HttpPut("update/{Id}")]
 	public async Task<IActionResult> UpdateCategory([FromRoute(Name = "Id")] long id,
 		[FromBody] UpdateCategoryCommand command)
 	{

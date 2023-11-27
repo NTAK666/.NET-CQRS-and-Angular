@@ -7,7 +7,8 @@ public abstract class BaseEntity : IBaseEntity
 {
 	[Key]
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-	public virtual long Id { get; set; }
+	public
+		virtual long Id { get; set; }
 
 	public DateTime CreatedAt { get; set; }
 	public DateTime UpdatedAt { get; set; }

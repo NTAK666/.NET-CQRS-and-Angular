@@ -4,11 +4,11 @@ using AutoMapper;
 
 namespace api.Profiles;
 
-public class CategoryProfile : Profile
+public class ProductProfile : Profile
 {
-	public CategoryProfile()
+	public ProductProfile()
 	{
-		CreateMap<Category, CategoryResponse>()
+		CreateMap<Product, ProductResponse>()
 			.MaxDepth(2);
 	}
 }

@@ -27,6 +27,7 @@ public class Repository<T, K> : IRepository<T, K> where T : class, IBaseEntity, 
 	public Task<T> UpdateAsync(T entity)
 	{
 		var t = _context.Update(entity);
+		_context.SaveChanges();
 		return Task.FromResult(t.Entity);
 	}
 
@@ -53,6 +54,31 @@ public class Repository<T, K> : IRepository<T, K> where T : class, IBaseEntity, 
 
 		return query.FirstOrDefault();
 	}
+
+	public List<T>? FindAll(Expression<Func<T, T>>? selector = null,
+		Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+		Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool disableTracking = true,
+		bool ignoreQueryFilters = false)
+	{
+		IQueryable<T> query = _dbSet;
+		if (ignoreQueryFilters)
+			query = query.IgnoreQueryFilters();
+
+		if (disableTracking)
+			query = query.AsNoTracking();
+
+		if (include != null)
+			query = include(query);
+
+		if (predicate != null)
+			query = query.Where(predicate);
+
+		if (orderBy != null)
+			query = orderBy(query).Select(selector!).AsQueryable();
+
+		return query.ToList();
+	}
+
 
 	public bool SoftDelete(T entity)
 	{

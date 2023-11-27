@@ -8,6 +8,7 @@ public class UnitOfWork : IUnitOfWork
 {
 	private readonly SimpleDBContext _context;
 	private ICategoryRepository _categoryRepository;
+	private IProductRepository _productRepository;
 
 	public UnitOfWork(SimpleDBContext context)
 	{
@@ -17,6 +18,11 @@ public class UnitOfWork : IUnitOfWork
 	public ICategoryRepository CategoryRepository
 	{
 		get { return _categoryRepository ??= new CategoryRepository(_context); }
+	}
+
+	public IProductRepository ProductRepository
+	{
+		get { return _productRepository ??= new ProductRepository(_context); }
 	}
 
 	public void SaveChanges()
